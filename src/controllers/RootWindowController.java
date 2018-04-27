@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Menu;
@@ -94,9 +96,13 @@ public class RootWindowController implements Initializable {
                 }
             }
         });
-        /*rechercherLabel.setOnMouseClicked((MouseEvent event) -> {
-            IRecette r = main.lancerRecetteFormulaire(Fabrique.creerRecette());
-        });*/
+        // Mise à jour du nom de fichier depuis le text field
+        fileTextField.focusedProperty().addListener(new ChangeListener<Boolean>(){
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                currentFile = new File(fileTextField.getText());
+            }
+        });
     }
     
     /**
